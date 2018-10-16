@@ -1,0 +1,45 @@
+<div class="clear"></div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="title">
+        <span class="title-text">Cadastro de contato</span>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+
+    <div *ngFor="let contact of contacts" class="form-group col-md-12 col-sm-12 col-xs-12">
+
+        <div class="form-group col-md-3 col-sm-5 col-xs-12">
+            <label class="input-label" for="rg">Email</label>
+            <span class="obrigatorio">*</span>
+            <div class="form-group">
+                <input type="text" pInputText [value]="contact.email" placeholder="Email" > 
+            </div>
+        </div>
+
+        <div class="form-group col-md-3 col-sm-5 col-xs-12">
+            <label class="input-label" for="rg">Telefone</label>
+            <span class="obrigatorio">*</span>
+            <div class="form-group">
+                <input type="text" pInputText  [value]="contact.phone" placeholder="Telefone" > 
+            </div>
+        </div>
+
+        <div class="form-group col-md-3 col-sm-5 col-xs-12">
+            <label class="input-label" for="rg">Celular</label>
+            <span class="obrigatorio">*</span>
+            <div class="form-group">
+                <input type="text" pInputText  [value]="contact.cellphone" placeholder="Celular" > 
+            </div>
+        </div>
+
+        <p-button icon="fa fa-check" iconPos="left" (click)="add()" ></p-button>
+    </div>
+
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 top-20">
+    <button type="submit" class="btn button-back pull-left" *ngIf="person.name || person.sex || person.age" (click)="cancelar()">Cancelar</button>
+    <button type="submit" class="btn button-next pull-right" (click)="salvar()">Salvar</button>
+</div>

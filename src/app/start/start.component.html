@@ -1,0 +1,39 @@
+<div class="clear"></div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="title">
+        <span class="title-text">Cadastro de Pessoa</span>
+    </div>
+</div>
+
+<div class="form-group col-md-6 col-sm-5 col-xs-12">
+    <label class="input-label" for="name">Nome completo</label>
+    <span class="obrigatorio">*</span>
+    <input type="text" class="col-md-12 col-sm-12 col-xs-12" pInputText required placeholder="Nome completo" [(ngModel)]="person.nome" (keypress)="onlyLetter($event)" > 
+</div>
+
+<div class="form-group col-md-2 col-sm-5 col-xs-12">
+    <label class="input-label" for="sex">Sexo</label>
+    <span class="obrigatorio">*</span>
+    <select class="form-control input-text" [(ngModel)]="person.sex">
+        <option disabled [selected]="!person.sex">Sexo</option>
+        <option name="M" value="M" [selected]="person.sex == 'M'">Masculino</option>
+        <option name="F" value="F" [selected]="person.sex == 'F'">Feminino</option>
+        <option name="N" value="N" [selected]="person.sex == 'N'">Neutro</option>
+    </select>
+</div>
+
+<div class="form-group col-md-2 col-sm-5 col-xs-12">
+    <label class="input-label" for="age">Idade</label>
+    <span class="obrigatorio">*</span>
+    <div class="form-group">
+        <input type="text" pInputText required placeholder="Idade" [(ngModel)]="person.age" (keypress)="onlyNumber($event)" > 
+    </div>
+</div>
+
+
+
+<div class="col-md-12 col-sm-12 col-xs-12 top-20">
+    <button type="button" *ngIf="person.id" class="btn button-next pull-left" (click)="addContact()">Adicionar Contato</button>
+    <button type="submit" [disabled]="!person.name || !person.sex || !person.age" class="btn button-next pull-right" (click)="salvar()">Salvar</button>
+</div>

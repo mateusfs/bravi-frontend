@@ -1,0 +1,47 @@
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+
+<div class="clear"></div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="title">
+    <span class="title-text">Listagem</span>
+  </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome completo</th>
+          <th>Sexo</th>
+          <th>Idade</th>
+          <th>Editar</th>
+          <th>Remover</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="persons">
+        <tr *ngFor="let person of persons">
+          <th scope="row">1</th>
+          <td>{{ person.name }}</td>
+          <td>{{ person.sex }}</td>
+          <td>{{ person.age }}</td>
+          <td class="center">
+            <span class="glyphicon glyphicon-pencil" (click)="editar(person)"></span>
+          </td>
+          <td class="center">
+            <span class="glyphicon glyphicon-remove" (click)="remover(person)"></span>
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!persons.length">
+        <tr>
+          <td colspan="8">Ainda não há pessoas cadastradas!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <button type="submit" class="btn button-next pull-right" [routerLink]="['/start']">Cadastrar pessoa</button>
+</div>
