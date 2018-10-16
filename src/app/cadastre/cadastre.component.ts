@@ -105,7 +105,10 @@ export class CadastreComponent implements OnInit {
     let persons = this.personService.getPersons();
     
     if(!persons) persons = [];
-    persons.push(this.person)
+    
+    if (!persons.find(item => item.id == this.person.id)) {
+      persons.push(this.person)
+    }
 
     if(Array.isArray(persons)){
       this.personService.setPersons(persons);

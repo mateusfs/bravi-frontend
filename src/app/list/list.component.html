@@ -14,10 +14,10 @@
         <tr>
           <th>#</th>
           <th>Nome completo</th>
-          <th>Sexo</th>
-          <th>Idade</th>
-          <th>Editar</th>
-          <th>Remover</th>
+          <th class="col-md-1">Sexo</th>
+          <th class="col-md-1 center">Idade</th>
+          <th class="col-md-1 center">Editar</th>
+          <th class="col-md-1 center">Remover</th>
         </tr>
       </thead>
       <tbody *ngIf="persons">
@@ -25,7 +25,7 @@
           <th scope="row">1</th>
           <td>{{ person.name }}</td>
           <td>{{ getSexPerson(person.sex) }}</td>
-          <td>{{ person.age }}</td>
+          <td class="center">{{ person.age }}</td>
           <td class="center">
             <span class="glyphicon glyphicon-pencil" (click)="editar(person)"></span>
           </td>

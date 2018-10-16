@@ -107,7 +107,10 @@ export class ContactCadastreComponent implements OnInit {
     let contacts = this.contactService.getContactsPerson();
     
     if(!contacts) contacts = [];
-    contacts.push(this.contact)
+    
+    if (!contacts.find(item => item.id == this.contact.id)) {
+      contacts.push(this.contact)
+    }
 
     if(Array.isArray(contacts)){
       this.contactService.setContactsPerson(contacts);
