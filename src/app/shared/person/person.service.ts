@@ -27,6 +27,10 @@ export class PersonService {
     this.SessionService.setValor('person', JSON.stringify(person));
   }
 
+  generateId(){
+    return (Math.random().toString(36).toUpperCase()+ Math.random().toString(36).substring(2, 15).toUpperCase()).replace('.', '');
+  }
+
   getPersonsSync(){
     const persons = this.getPersons();
 
@@ -49,7 +53,7 @@ export class PersonService {
 			return BehaviorSubject.create();
     }
     
-    let url: string = ServiceUrlBuilder.get(UrlType.person, 'save');
+    let url: string = ServiceUrlBuilder.get(UrlType.person, 'savePersons');
 		return this.http.post(url, { person: this.getPersonsSync() }).pipe(
 			map((response: any) => response.revisions),
 			catchError(error => observableThrowError(error)));

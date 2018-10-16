@@ -24,9 +24,14 @@ export class ListComponent implements OnInit {
 
   public removePerson(person) {
     
-    if (this.persons.find(item => item.id == person.id)) {
-      this.persons.splice(person, 1);
+    if(Array.isArray(this.persons)){
+      this.persons.forEach((item, index) => {
+        if(item.id === person.id){
+          this.persons.splice(index, 1);
+        }
+      });
     }
+
     this.personService.setPersons(this.persons);
   }
 

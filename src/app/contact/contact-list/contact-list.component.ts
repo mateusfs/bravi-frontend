@@ -33,9 +33,8 @@ export class ContactListComponent implements OnInit {
       this.router.navigate(['/cadastre']);
     }
 
-    if (this.contactService.getContactsPerson()) {
-      this.contacts = this.contactService.getContactsPerson();
-    }
+    this.contactService.setContact(null);
+    this.contacts = this.contactService.getContactsPerson();
 
     this.contactService.saveContactSync().subscribe((response) => {
       if(response){
@@ -69,11 +68,15 @@ export class ContactListComponent implements OnInit {
 
   public removeContact(contact) {
     
-    if (this.contacts.find(item => item.id == contact.id)) {
-      this.contacts.splice(contact, 1);
+    if(Array.isArray(this.contacts)){
+      this.contacts.forEach((item, index) => {
+        if(item.id === contact.id){
+          this.contacts.splice(index, 1);
+        }
+      });
     }
     
-    this.contactService.setContactsPerson(this.contacts);
+    this.contactService.setContacts(this.contacts);
   }
 
   public cadastre(){

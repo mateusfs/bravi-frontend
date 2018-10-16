@@ -6,32 +6,29 @@
     </div>
 </div>
    
-<div class="form-group col-md-5 col-sm-5 col-xs-12">
+<div class="form-group col-md-6 col-sm-5 col-xs-12">
     <label class="input-label" for="rg">Email</label>
     <span class="required">*</span>
     <div class="form-group">
-        <input type="text" class="col-md-12 col-sm-12 col-xs-12" pInputText [ngClass]="{'classErro': isValidade(email) }" [(ngModel)]="contact.email" placeholder="Email" > 
+        <input type="email" class="col-xs-12" pInputText [ngClass]="{'classErro': isValidade('email') }" [(ngModel)]="contact.email" placeholder="Email" > 
     </div>
 </div>
 
 <div class="form-group col-md-3 col-sm-5 col-xs-12">
     <label class="input-label" for="rg">Telefone</label>
-    <span class="required">*</span>
     <div class="form-group">
-        <input type="text" pInputText [ngClass]="{'classErro': isValidade(phone) }" [(ngModel)]="contact.phone" placeholder="Telefone" > 
+        <input type="text" class="col-xs-12" pInputText [textMask]="{mask: phoneMask}" [ngClass]="{'classErro': isValidade('phone') }" [(ngModel)]="contact.phone" placeholder="Telefone" > 
     </div>
 </div>
 
 <div class="form-group col-md-3 col-sm-5 col-xs-12">
     <label class="input-label" for="rg">Celular</label>
-    <span class="required">*</span>
     <div class="form-group">
-        <input type="text" pInputText [ngClass]="{'classErro': isValidade(cellphone) }" [(ngModel)]="contact.cellphone" placeholder="Celular" > 
+        <input type="text" class="col-xs-12" pInputText [textMask]="{mask: cellphoneMask}" [ngClass]="{'classErro': isValidade('cellphone') }" [(ngModel)]="contact.cellphone" placeholder="Celular" > 
     </div>
 </div>
 
-
-<div class="col-md-12 col-sm-12 col-xs-12 top-20">
+<div class="col-md-12 col-sm-12 col-xs-12 top-40">
     <button type="submit" class="btn button-back pull-left" (click)="back()">Cancelar</button>
     <button type="submit" class="btn button-next pull-right" [disabled]="disabledContact()" (click)="save()">Salvar</button>
 </div>

@@ -35,7 +35,7 @@
           </td>
         </tr>
       </tbody>
-      <tbody *ngIf="!contacts">
+      <tbody *ngIf="!contacts || !contacts.length">
         <tr>
           <td colspan="8">Ainda não há contatos cadastrados!</td>
         </tr>
@@ -45,5 +45,5 @@
 </div>
 <div class="col-md-12 col-sm-12 col-xs-12 top-40">
   <button type="button" class="btn button-back pull-left" (click)="back()">Voltar</button>
-  <button type="submit" class="btn button-next pull-right" (click)="cadastre()">Cadastrar contato</button>
+  <button type="submit" class="btn button-next pull-right" (click)="cadastre()">Adicionar contato</button>
 </div>

@@ -1,15 +1,4 @@
-* {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 30px;
-  color: #277bc4;
-}
-
-.container p {
-  font-size: 12px;
-  color: black;
-}
-
-.container a {
+.geral-footer a {
   font-size: 12px;
   color: black;
 }
@@ -20,62 +9,23 @@
   position: absolute;
   bottom: 0px;
   width: 100%;
-  min-width: 280px;
+  min-width: 200px;
 }
-
 
 .logo-footer {
   display: block;
   margin: 0 auto;
-  margin-top: 11px;
-  width: 70px;
-}
-
-.geral-footer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: 20px;
+  margin-top: 3px;
+  width: 40px;
 }
 
 .geral-footer p {
-  margin-top: 5px;
+  margin-top: 0px;
   font-size: 10px;
 }
-
-ul {
-	list-style: none;
-}
   
-@media screen and (min-width: 501px) and (max-width: 990px) {
-	.logo-footer {
-    margin-top: 10px;
-    position: absolute;
-    left: 50%;
-    margin-left: -49px;
-  }
-  
-	.geral-footer p {
-	    margin-top: 65px;
-	    font-size: 12px;
-  }
-  
-	.procon	{
-		margin-top: -40px;
-		margin-left: 25px;
-	}
-}
-
 @media screen and (max-width: 500px) {
   .logo-footer {
-    margin: 0;
-    margin-top: 52px;
-    width: 65px;
-  }
-}
-
-@media screen and (max-width: 450px) {
-  .logo-footer {
-      width: 65px;
+    width: 30px;
   }
 }

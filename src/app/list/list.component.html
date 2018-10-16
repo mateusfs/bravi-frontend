@@ -34,7 +34,7 @@
           </td>
         </tr>
       </tbody>
-      <tbody *ngIf="!persons">
+      <tbody *ngIf="!persons || !persons.length">
         <tr>
           <td colspan="8">Ainda não há pessoas cadastradas!</td>
         </tr>
@@ -42,6 +42,6 @@
     </table>
   </div>
 </div>
-<div class="col-md-12 col-sm-12 col-xs-12">
+<div class="col-md-12 col-sm-12 col-xs-12 top-40">
   <button type="submit" class="btn button-next pull-right" [routerLink]="['/cadastre']">Cadastrar pessoa</button>
 </div>

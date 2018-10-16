@@ -6,16 +6,16 @@
     </div>
 </div>
 
-<div class="form-group col-md-6 col-sm-5 col-xs-12">
+<div class="form-group col-md-8 col-sm-5 col-xs-12">
     <label class="input-label" for="name">Nome completo</label>
     <span class="required">*</span>
-    <input type="text" class="col-md-12 col-sm-12 col-xs-12" [ngClass]="{'classErro': isValidade(name) }" pInputText required placeholder="Nome completo" [(ngModel)]="person.name" (keypress)="onlyLetter($event)" > 
+    <input type="text" class="col-xs-12" [ngClass]="{'classErro': isValidade('name') }" pInputText required placeholder="Nome completo" [(ngModel)]="person.name" (keypress)="onlyLetter($event)" > 
 </div>
 
 <div class="form-group col-md-2 col-sm-5 col-xs-12">
     <label class="input-label" for="sex">Sexo</label>
     <span class="required">*</span>
-    <select class="form-control input-text" [(ngModel)]="person.sex" [ngClass]="{'classErro': isValidade(sex) }">
+    <select class="form-control input-text" [(ngModel)]="person.sex" [ngClass]="{'classErro': isValidade('sex') }">
         <option *ngFor="let race of personRace" [value]="race.id" [selected]="person.sex == race.id">{{ race.label }}</option>
     </select>
 </div>
@@ -24,11 +24,11 @@
     <label class="input-label" for="age">Idade</label>
     <span class="required">*</span>
     <div class="form-group">
-        <input type="text" pInputText required placeholder="Idade" [ngClass]="{'classErro': isValidade(age) }" [(ngModel)]="person.age" (keypress)="onlyNumber($event)" > 
+        <input type="text" class="col-xs-12" pInputText required placeholder="Idade" [ngClass]="{'classErro': isValidade('age') }" [(ngModel)]="person.age" (keypress)="onlyNumber($event)" > 
     </div>
 </div>
 
-<div class="col-md-12 col-sm-12 col-xs-12 top-20">
-    <button type="button" *ngIf="person.id" class="btn button-next pull-left" (click)="addContact()">Adicionar Contato</button>
+<div class="col-md-12 col-sm-12 col-xs-12 top-40">
+    <button type="button" *ngIf="person.id" class="btn button-add pull-left" (click)="addContact()">Adicionar Contato</button>
     <button type="submit" [disabled]="disabledPerson()" class="btn button-next pull-right" (click)="save()">Salvar</button>
 </div>

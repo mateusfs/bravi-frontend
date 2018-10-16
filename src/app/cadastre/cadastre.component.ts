@@ -80,23 +80,22 @@ export class CadastreComponent implements OnInit {
     if (this.formulario.status === 'VALID') {
       
       if(!this.person.id){
-        this.person.id = this.generateId();
+        this.person.id = this.personService.generateId();
+        this.person.sync = true;
+        this.setPersonSession();
       }
 
       this.personService.setPerson(this.person);
 
-      this.person.sync = true;
-
       this.personService.savePerson(this.person).subscribe((response) => {
 				if(response){
           this.person.sync = false;
+          this.setPersonSession();
         }
 			},
       error => {
         this.setPersonSession();
       });
-
-      this.router.navigate(['/list']);
     }
   }
 
@@ -106,13 +105,22 @@ export class CadastreComponent implements OnInit {
     
     if(!persons) persons = [];
     
-    if (!persons.find(item => item.id == this.person.id)) {
+    persons.forEach((item, index) => {
+      if(item.id === this.person.id){
+        persons.splice(index, 1);
+        persons.push(this.person);
+      }
+    });
+
+    if(!persons.find(item => item.id === this.person.id)){
       persons.push(this.person)
     }
 
-    if(Array.isArray(persons)){
+    if(Array.isArray(persons)  && !persons.length){
       this.personService.setPersons(persons);
     }
+
+    this.router.navigate(['/list']);
   }
   
   public isValidade(name){
@@ -127,9 +135,5 @@ export class CadastreComponent implements OnInit {
   public disabledPerson(){
     return !(this.person.name && this.person.sex && this.person.age);
   }
-
-  private generateId(){
-      return (Math.random().toString(36).toUpperCase()+ Math.random().toString(36).substring(2, 15).toUpperCase()).replace('.', '');
-  }
-  
+ 
 }

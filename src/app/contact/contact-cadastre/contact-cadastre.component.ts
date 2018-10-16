@@ -4,6 +4,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Contact } from '../../shared/contact/contact';
 import { ContactService } from '../../shared/contact/contact.service';
+import { PersonService } from '../../shared/person/person.service';
+import { Person } from '../../shared/person/person';
 
 @Component({
   selector: 'app-contact-cadastre',
@@ -13,18 +15,31 @@ import { ContactService } from '../../shared/contact/contact.service';
 
 export class ContactCadastreComponent implements OnInit {
 
+  public person = new Person();
   public contact = new Contact;
   public formulario: FormGroup;
   public formularioSenha: FormGroup;
 
+  public phoneMask = ['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/,  /\d/,'-', /\d/, /\d/, /\d/, /\d/];
+  public cellphoneMask = ['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
   constructor(
     private router: Router, 
-    private contactService: ContactService) { }
+    private contactService: ContactService,
+    private personService: PersonService) { }
 
   ngOnInit() {
 
+    if (this.personService.getPerson()) {
+      this.person = this.personService.getPerson();
+    }
+
     if (this.contactService.getContact()) {
       this.contact = this.contactService.getContact();
+    }
+
+    if(!this.contact || !this.person){
+      this.router.navigate(['/cadastre']);
     }
 
     this.contactService.saveContactSync().subscribe((response) => {
@@ -68,29 +83,35 @@ export class ContactCadastreComponent implements OnInit {
     this.formulario = new FormGroup({
       'email': new FormControl(this.contact.email, [
         Validators.required,
-        Validators.minLength(4)
+        Validators.email,
       ]),
       'phone': new FormControl(this.contact.phone, [
-        Validators.required,
+        Validators.minLength(7),
       ]),
       'cellphone': new FormControl(this.contact.cellphone, [
-        Validators.required,
+        Validators.minLength(8),
       ])
     });
 
     if (this.formulario.status === 'VALID') {
-      this.contact.sync = true;
+
+      this.contact.person = this.person.id;
+
+      if(!this.contact.id){
+        this.contact.id = this.contactService.generateId();
+        this.contact.sync = true;
+        this.setContactSession();
+      }
 
       this.contactService.saveContact(this.contact).subscribe((response) => {
 				if(response){
           this.contact.sync = false;
+          this.setContactSession();
         }
 			},
       error => {
         this.setContactSession();
       });
-
-      this.router.navigate(['/contact/list/']);
     }
   }
 
@@ -99,22 +120,31 @@ export class ContactCadastreComponent implements OnInit {
   }
 
   public disabledContact(){
-    return !(this.contact.email && this.contact.phone && this.contact.cellphone);
+    return !(this.contact.email);
   }
 
   private setContactSession(){
 
-    let contacts = this.contactService.getContactsPerson();
+    let contacts = this.contactService.getContacts();
     
     if(!contacts) contacts = [];
     
-    if (!contacts.find(item => item.id == this.contact.id)) {
-      contacts.push(this.contact)
+    contacts.forEach((item, index) => {
+      if(item.id == this.contact.id){
+        contacts.splice(index, 1);
+        contacts.push(this.contact);
+      }
+    });
+
+    if(!contacts.find(item => item.id == this.contact.id)){
+      contacts.push(this.contact);
     }
 
     if(Array.isArray(contacts)){
-      this.contactService.setContactsPerson(contacts);
+      this.contactService.setContacts(contacts);
     }
+
+    this.router.navigate(['/contact/list/']);
   }
   
   public isValidade(name){
@@ -126,5 +156,6 @@ export class ContactCadastreComponent implements OnInit {
     this.router.navigate(['/cadastre']);
   }
 
+  
   
 }
