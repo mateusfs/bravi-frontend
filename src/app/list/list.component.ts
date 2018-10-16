@@ -2,7 +2,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 
-import { Person } from '../shared/person/person';
+import { Person, PersonRace } from '../shared/person/person';
 import { PersonService } from '../shared/person/person.service';
 
 @Component({
@@ -13,30 +13,31 @@ import { PersonService } from '../shared/person/person.service';
 export class ListComponent implements OnInit {
 
   public persons: Array<Person>;
+  public personRace = PersonRace;
 
   constructor(private router: Router, private personService: PersonService, private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
+    this.personService.setPerson(null);
     this.persons = this.personService.getPersons();
-    if(!this.persons) this.persons = [];
   }
 
-  removePerson(person) {
+  public removePerson(person) {
     
-    if (this.persons.find(person, 0)) {
+    if (this.persons.find(item => item.id == person.id)) {
       this.persons.splice(person, 1);
     }
     this.personService.setPersons(this.persons);
   }
 
-  editar(person) {
+  public editar(person) {
     this.personService.setPerson(person);
 
-    this.router.navigate(['/start']);
+    this.router.navigate(['/cadastre']);
   }
 
 
-  remover(person) {
+  public remover(person) {
     this.confirmationService.confirm({
       header: 'Atenção',
       message: 'Você tem certeza que deseja excluir esta pessoa?',
@@ -47,6 +48,11 @@ export class ListComponent implements OnInit {
         this.removePerson(person);
       }
     });
+  }
+
+  public getSexPerson(sex){
+    const race =  this.personRace.find(item => item.id == sex);
+    if(race) return race.label;
   }
 
 

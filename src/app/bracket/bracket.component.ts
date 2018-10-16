@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bracket',
@@ -11,27 +10,32 @@ export class BracketComponent implements OnInit {
 
   
   public isBracketValid: boolean = false;
+  public bracket: string = "";
 
-  constructor(private router: Router) { }
+  constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  balancedBrackets() {
+
+    var rx1 = /\[([^\]]+)]/;
+    var rx2 = /\(([^)]+)\)/;
+    var rx3 = /{([^}]+)}/;
+    var rx4 = /[^a-zA-Z0-9]/;
     
-  }
+    this.isBracketValid = true;
 
-  balancedBrackets(event: any) {
-
-    //const pattern = /\((?:[^)(]+|\((?:[^)(]+|\([^)(]*\))*\))*\)/;
-    const pattern = /\(([^()]*|\([^()]*\))*\)/;
-    const inputChar = String.fromCharCode(event.charCode);
-
-    if (event.keyCode == '32') {
+    if (rx1.test(this.bracket) || rx2.test(this.bracket) || rx3.test(this.bracket) || rx4.test(this.bracket)) {
       this.isBracketValid = false;
     }
-
-    if (!pattern.test(inputChar)) {
-      this.isBracketValid = true;
-    }
-
-    this.isBracketValid = false;
   }
+
+  showError(){
+    return this.isBracketValid && this.bracket;
+  }
+
+  showSuccess(){
+    return !this.isBracketValid && this.bracket;
+  }
+
 }

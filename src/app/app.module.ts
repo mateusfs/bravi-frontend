@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { routing } from './app-routing.module';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -17,13 +17,15 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { AppComponent } from './app.component';
 import { BracketComponent } from './bracket/bracket.component';
 import { ListComponent } from './list/list.component';
-import { StartComponent } from './start/start.component';
+import { CadastreComponent } from './cadastre/cadastre.component';
 
 import { PersonService } from './shared/person/person.service';
 import { SessionService } from './shared/session/session.service';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
-
+import { ContactService } from './shared/contact/contact.service';
+import { ContactListComponent } from './contact/contact-list/contact-list.component';
+import { ContactCadastreComponent } from './contact/contact-cadastre/contact-cadastre.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +33,10 @@ import { HeaderComponent } from './shared/header/header.component';
     HeaderComponent,
     FooterComponent,
     ListComponent,
-    StartComponent,
-    BracketComponent
+    CadastreComponent,
+    BracketComponent,
+    ContactListComponent,
+    ContactCadastreComponent
   ],
   imports: [
     BrowserModule,
@@ -46,10 +50,12 @@ import { HeaderComponent } from './shared/header/header.component';
     BrowserAnimationsModule,
     ConfirmDialogModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    HttpClientModule
   ],
   providers: [
     PersonService,
+    ContactService,
     SessionService,
     ConfirmationService,
     HttpClient

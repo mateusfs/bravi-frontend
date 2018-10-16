@@ -1,0 +1,49 @@
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+
+<div class="clear"></div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="title">
+      
+    <span class="title-text">Lista de contatos - {{ person.name }}</span>
+  </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Celular</th>
+          <th>Editar</th>
+          <th>Remover</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="contacts">
+        <tr *ngFor="let contact of contacts">
+          <th scope="row">1</th>
+          <td>{{ contact.email }}</td>
+          <td>{{ contact.phone }}</td>
+          <td>{{ contact.cellphone }}</td>
+          <td class="center">
+            <span class="glyphicon glyphicon-pencil" (click)="editar(contact)"></span>
+          </td>
+          <td class="center">
+            <span class="glyphicon glyphicon-remove" (click)="remover(contact)"></span>
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!contacts">
+        <tr>
+          <td colspan="8">Ainda não há contatos cadastrados!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 top-40">
+  <button type="button" class="btn button-back pull-left" (click)="back()">Voltar</button>
+  <button type="submit" class="btn button-next pull-right" (click)="cadastre()">Cadastrar contato</button>
+</div>

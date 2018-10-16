@@ -3,6 +3,7 @@ export class Person {
     name: string;
     sex: string;
     age: string;
+    sync: boolean;
 
     constructor() {
     }
@@ -14,8 +15,10 @@ export class Person {
     }
 }
 
-export interface PersonRace {
-    male: 'M',
-    female: 'F',
-    neutral: 'N',
-};
+var PersonRace = [
+    { id: 'MALE', label: 'Masculino'},
+	{ id: 'FEMALE', label: 'Feminino'},
+	{ id: 'NEUTRAL', label: 'Neutro'}
+];
+
+export { PersonRace };

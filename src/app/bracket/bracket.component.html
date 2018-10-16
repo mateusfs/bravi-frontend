@@ -1,25 +1,22 @@
-<div class="clear"></div>
+<div class="row justify-content-md-center">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="title">
+            <span class="title-text">Validação de Colchetes</span>
+        </div>
+    </div>
 
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="title">
-        <span class="title-text">Validação de Colchetes</span>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
+        <div class="form-group col-md-8 col-sm-8 col-xs-12">
+            <label class="input-label" for="nome">Colchetes</label>
+            <span class="required">*</span>
+            <input type="text" class="form-control input-text" [(ngModel)]="bracket" pInputText required placeholder="Colchetes" 
+                   [ngClass]="{'classErro': showError(), 'classSuccess': showSuccess() }" > 
+        </div>
+
+        <div class="col-md-8 col-sm-8 col-xs-12 top-20">
+            <button type="submit" class="btn button-next pull-right" [disabled]="!bracket" (click)="balancedBrackets()">Validar</button>
+        </div>
+
     </div>
 </div>
-
-<div class="col-md-12 col-sm-12 col-xs-12">
-
-    <div class="form-group col-md-5 col-sm-8 col-xs-12">
-        <label class="input-label" for="nome">Colchetes</label>
-        <span class="obrigatorio">*</span>
-        <input type="text" class="form-control input-text" pInputText required placeholder="Colchetes" 
-                [ngClass]="{'classErro': isBracketValid }" (keypress)="balancedBrackets($event)" > 
-    </div>
-
-
-    <div class="col-md-12 col-sm-12 col-xs-12 top-20">
-        <button type="submit" class="btn button-back pull-left" *ngIf="brackets" (click)="cancel()">Cancelar</button>
-        <button type="submit" class="btn button-next pull-right" [disabled]="!brackets" (click)="save()">Salvar</button>
-    </div>
-
-</div>
-

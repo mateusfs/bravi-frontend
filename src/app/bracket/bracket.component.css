@@ -4,6 +4,11 @@
   font-weight: 200;
 }
 
+.center{
+  margin: auto;
+  text-align: center;
+}
+
 @media (min-width: 1000px) {
   .input-label{
     font-size: 18px;

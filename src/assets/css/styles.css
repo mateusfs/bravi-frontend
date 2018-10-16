@@ -58,7 +58,6 @@ body {
   border-color: #00468F;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 50px;
   border-radius: 0px;
   color: white;
 }
@@ -76,12 +75,15 @@ body {
   border-color: #FFFFFF;
   border-radius: 0px;
   color: black;
-  margin-top: 20px;
   border: 0px;
 }
 
 .top-20{
   margin-top: 20px;
+}
+
+.top-40{
+  margin-top: 40px;
 }
 
 .button-back.focus, .button-back:focus, .button-back:hover , .button-back::after, .button-back::before {
@@ -90,7 +92,7 @@ body {
   border-color: #FFFFFF;
 }
 
-span.obrigatorio{
+span.required{
   font-size: 15px;
   color: #787878;
   margin: 5px;
@@ -122,6 +124,10 @@ span.obrigatorio{
 .ui-inputtext.ui-state-focus, .ui-inputtext:focus {
   -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3) !important;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3) !important;
+}
+
+.classSuccess {
+  box-shadow: 0px 0px 10px 0px #0C9348 !important;
 }
 
 .classErro {
@@ -175,7 +181,7 @@ span.obrigatorio{
     min-width: 160px;
   }
 
-  .button-voltar {
+  .button-back {
     min-width: 180px;
   }
 
@@ -196,11 +202,11 @@ span.obrigatorio{
     min-width: 170px;
   }
 
-  .button-voltar {
+  .button-back {
     min-width: 205px;
   }
 
-  span.obrigatorio {
+  span.required {
     top: -8px;
   }
 
@@ -224,7 +230,7 @@ span.obrigatorio{
     font-size: 16px;
   }
 
-  .button-voltar {
+  .button-back {
     min-width: 205px;
   }
   

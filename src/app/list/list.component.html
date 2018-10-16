@@ -24,7 +24,7 @@
         <tr *ngFor="let person of persons">
           <th scope="row">1</th>
           <td>{{ person.name }}</td>
-          <td>{{ person.sex }}</td>
+          <td>{{ getSexPerson(person.sex) }}</td>
           <td>{{ person.age }}</td>
           <td class="center">
             <span class="glyphicon glyphicon-pencil" (click)="editar(person)"></span>
@@ -34,7 +34,7 @@
           </td>
         </tr>
       </tbody>
-      <tbody *ngIf="!persons.length">
+      <tbody *ngIf="!persons">
         <tr>
           <td colspan="8">Ainda não há pessoas cadastradas!</td>
         </tr>
@@ -43,5 +43,5 @@
   </div>
 </div>
 <div class="col-md-12 col-sm-12 col-xs-12">
-  <button type="submit" class="btn button-next pull-right" [routerLink]="['/start']">Cadastrar pessoa</button>
+  <button type="submit" class="btn button-next pull-right" [routerLink]="['/cadastre']">Cadastrar pessoa</button>
 </div>
