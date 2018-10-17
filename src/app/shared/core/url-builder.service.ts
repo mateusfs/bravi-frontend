@@ -24,6 +24,9 @@ export enum UrlType {
 
 /**
  *  If the API is implemented in a LINUX environment, use 'UrlProductLinux'
+ *  If the API is implemented in a WINDOWS environment, use 'UrlProductWIN'
+ * 
+ *  OR configure the php.ini where is the API
  */
 
 const UrlProductWin = { environment: 'WIN', product: 'api/v1/public'};
