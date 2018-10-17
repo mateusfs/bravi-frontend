@@ -111,11 +111,11 @@ export class CadastreComponent implements OnInit {
     });
 
     if(!persons.find(item => item.id === this.person.id)){
-      persons.push(this.person)
+      persons.push(this.person);
     }
 
-    if(Array.isArray(persons)  && !persons.length){
-      this.personService.setPersons(persons);
+    if(Array.isArray(persons)  && persons.length){
+       this.personService.setPersons(persons);
     }
 
     this.router.navigate(['/list']);

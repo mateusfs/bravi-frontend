@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { throwError as observableThrowError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { SessionService } from '../session/session.service';
 import { ServiceUrlBuilder, UrlType } from '../core/url-builder.service';
-import { HttpClient } from '../core/http-client';
+import { HeaderService } from '../core/header-service';
 
 
 @Injectable()
 export class PersonService {
 
-  constructor(private SessionService: SessionService, private http: HttpClient) { }
+  constructor(
+    private SessionService: SessionService, 
+    private http: HttpClient, 
+    private header: HeaderService) { }
 
   public getPersons() {
     return JSON.parse(this.SessionService.getValor('persons'));
@@ -50,15 +54,29 @@ export class PersonService {
 
   public savePersonSync() {
     let url: string = ServiceUrlBuilder.get(UrlType.person, 'savePersons');
-		return this.http.post(url, { person: this.getPersonsSync() }).pipe(
-			map((response: any) => response.revisions),
+		return this.http.post(url, { persons: this.getPersonsSync() }, { headers: this.header.getHeaders() }).pipe(
+			map((response: any) => response),
 			catchError(error => observableThrowError(error)));
   }
 
   public savePerson(person) {
     let url: string = ServiceUrlBuilder.get(UrlType.person, 'save');
-		return this.http.post(url, { person: person }).pipe(
-			map((response: any) => response.revisions),
+		return this.http.post(url, { person: person }, { headers: this.header.getHeaders() }).pipe(
+			map((response: any) => response),
+			catchError(error => observableThrowError(error)));
+  }
+
+  public getPersonApi(id) {
+    let url: string = ServiceUrlBuilder.get(UrlType.person, 'get');
+		return this.http.get(url+"/"+id, { headers: this.header.getHeaders() }).pipe(
+			map((response: any) => response),
+			catchError(error => observableThrowError(error)));
+  }
+
+  public deletePerson(id) {
+    let url: string = ServiceUrlBuilder.get(UrlType.person, 'delete');
+		return this.http.delete(url+"/"+id, { headers: this.header.getHeaders() }).pipe(
+			map((response: any) => response),
 			catchError(error => observableThrowError(error)));
   }
 

@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { throwError as observableThrowError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
+import { HeaderService } from '../core/header-service';
 import { SessionService } from '../session/session.service';
 import { ServiceUrlBuilder, UrlType } from '../core/url-builder.service';
-import { HttpClient } from '../core/http-client';
 import { PersonService } from '../person/person.service';
+
+
 
 @Injectable()
 export class ContactService {
 
   constructor(
     private SessionService: SessionService, 
+    private header: HeaderService, 
     private http: HttpClient, 
     private personService: PersonService
   ) { }
@@ -70,15 +74,30 @@ export class ContactService {
 
   public saveContactSync() {
     let url: string = ServiceUrlBuilder.get(UrlType.contact, 'saveContacts');
-		return this.http.post(url, { person: this.getContactSync() }).pipe(
-			map((response: any) => response.revisions),
+    return this.http.post(url, { contacts: this.getContactSync() }, 
+          { headers: this.header.getHeaders()}).pipe(
+			map((response: any) => response),
 			catchError(error => observableThrowError(error)));
   }
 
-  public saveContact(person) {
+  public saveContact(contact) {
     let url: string = ServiceUrlBuilder.get(UrlType.contact, 'save');
-		return this.http.post(url, { person: person }).pipe(
-			map((response: any) => response.revisions),
+		return this.http.post(url, { contact: contact }, { headers: this.header.getHeaders() }).pipe(
+			map((response: any) => response),
+			catchError(error => observableThrowError(error)));
+  }
+
+  public getContactApi(id) {
+    let url: string = ServiceUrlBuilder.get(UrlType.contact, 'get');
+		return this.http.get(url+"/"+id, { headers: this.header.getHeaders() }).pipe(
+			map((response: any) => response),
+			catchError(error => observableThrowError(error)));
+  }
+
+  public deleteContact(id) {
+    let url: string = ServiceUrlBuilder.get(UrlType.contact, 'delete');
+		return this.http.delete(url+"/"+id, { headers: this.header.getHeaders() }).pipe(
+			map((response: any) => response),
 			catchError(error => observableThrowError(error)));
   }
 

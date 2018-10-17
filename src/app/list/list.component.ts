@@ -28,6 +28,7 @@ export class ListComponent implements OnInit {
       this.persons.forEach((item, index) => {
         if(item.id === person.id){
           this.persons.splice(index, 1);
+          this.personService.deletePerson(person.id);
         }
       });
     }
@@ -59,6 +60,4 @@ export class ListComponent implements OnInit {
     const race =  this.personRace.find(item => item.id == sex);
     if(race) return race.label;
   }
-
-
 }

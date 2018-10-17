@@ -14,12 +14,12 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 import { InputMaskModule } from 'primeng/inputmask';
 
+import { HeaderService } from './shared/core/header-service';
 import { AppComponent } from './app.component';
 import { BracketComponent } from './bracket/bracket.component';
 import { ListComponent } from './list/list.component';
 import { CadastreComponent } from './cadastre/cadastre.component';
 
-import { HttpClient } from './shared/core/http-client';
 import { PersonService } from './shared/person/person.service';
 import { SessionService } from './shared/session/session.service';
 import { FooterComponent } from './shared/footer/footer.component';
@@ -60,7 +60,7 @@ import { ContactCadastreComponent } from './contact/contact-cadastre/contact-cad
     ContactService,
     SessionService,
     ConfirmationService,
-    HttpClient
+    HeaderService
   ],
   bootstrap: [AppComponent]
 })

@@ -71,6 +71,7 @@ export class ContactListComponent implements OnInit {
       this.contacts.forEach((item, index) => {
         if(item.id === contact.id){
           this.contacts.splice(index, 1);
+          this.contactService.deleteContact(contact.id);
         }
       });
     }

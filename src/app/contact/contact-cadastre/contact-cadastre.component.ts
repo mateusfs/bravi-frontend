@@ -138,7 +138,7 @@ export class ContactCadastreComponent implements OnInit {
       contacts.push(this.contact);
     }
 
-    if(Array.isArray(contacts)){
+    if(Array.isArray(contacts) && contacts.length){
       this.contactService.setContacts(contacts);
     }
 
