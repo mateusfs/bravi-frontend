@@ -11,30 +11,36 @@ export class BracketComponent implements OnInit {
   
   public isBracketValid: boolean = false;
   public bracket: string = "";
-
+  private regex = /[a-zA-Z0-9]/;
+  
   constructor() { }
 
   ngOnInit() { }
 
   balancedBrackets() {
 
-    var rx1 = /\[([^\]]+)]/;
-    var rx2 = /\(([^)]+)\)/;
-    var rx3 = /{([^}]+)}/;
-    var rx4 = /[^a-zA-Z0-9]/;
-    
     this.isBracketValid = true;
 
-    if (rx1.test(this.bracket) || rx2.test(this.bracket) || rx3.test(this.bracket) || rx4.test(this.bracket)) {
+    if (!this.regex.test(this.bracket)) {
       this.isBracketValid = false;
+    }
+
+    this.validabalancedBracketsPair('(', ')');
+    this.validabalancedBracketsPair('[', ']');
+    this.validabalancedBracketsPair('{', '}');
+  }
+
+  private validabalancedBracketsPair(param1, param2){
+    if(this.bracket.split(param1).length !== this.bracket.split(param2).length){
+      this.isBracketValid = true;
     }
   }
 
-  showError(){
+  public showError(){
     return this.isBracketValid && this.bracket;
   }
 
-  showSuccess(){
+  public showSuccess(){
     return !this.isBracketValid && this.bracket;
   }
 
