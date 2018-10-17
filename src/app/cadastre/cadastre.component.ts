@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Person, PersonRace } from '../shared/person/person';
@@ -18,20 +18,37 @@ export class CadastreComponent implements OnInit {
   public formulario: FormGroup;
   public personRace = PersonRace;
 
-  constructor(private router: Router, private personService: PersonService) { }
+  constructor(
+    private router: Router, 
+    private activatedRoute: ActivatedRoute,
+    private personService: PersonService) { }
 
   ngOnInit() { 
+
+    this.getPersonApi();
 
     if (this.personService.getPerson()) {
       this.person = this.personService.getPerson();
     }
 
-    if(!this.personService.getPersonsSync()){
+    if(this.personService.getPersonsSync() && this.personService.getPersonsSync().length){
 			this.personService.initialPersonsSync();
     }
   }
 
-  onlyLetter(event: any) {
+  private getPersonApi(){
+    this.activatedRoute.params.subscribe((value) => {
+      if(value && value.id){
+        this.personService.getPersonApi(value.id).subscribe((person) => {
+          if(person){
+            this.personService.setPerson(person);
+          }
+        });  
+      }
+    });
+  }
+
+  public onlyLetter(event: any) {
 
     const pattern = /^[a-zA-Z]/;
     const inputChar = String.fromCharCode(event.charCode);
@@ -47,7 +64,7 @@ export class CadastreComponent implements OnInit {
     return true;
   }
 
-  onlyNumber(event: any) {
+  public onlyNumber(event: any) {
 
     const pattern = /[0-9]/;
     const inputChar = String.fromCharCode(event.charCode);
@@ -61,7 +78,7 @@ export class CadastreComponent implements OnInit {
     }
   }
 
-  save(){
+  public save(){
     this.formulario = new FormGroup({
       'name': new FormControl(this.person.name, [
         Validators.required,

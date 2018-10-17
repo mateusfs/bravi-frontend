@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Contact } from '../../shared/contact/contact';
@@ -26,9 +26,12 @@ export class ContactCadastreComponent implements OnInit {
   constructor(
     private router: Router, 
     private contactService: ContactService,
+    private activatedRoute: ActivatedRoute,
     private personService: PersonService) { }
 
   ngOnInit() {
+
+    this.getContactApi();
 
     if (this.personService.getPerson()) {
       this.person = this.personService.getPerson();
@@ -42,42 +45,24 @@ export class ContactCadastreComponent implements OnInit {
       this.router.navigate(['/cadastre']);
     }
 
-    if(!this.contactService.getContactSync()){
+    if(this.contactService.getContactSync() && this.contactService.getContactSync().length){
 			this.contactService.initialContactsSync();
     }
   }
 
-  onlyLetter(event: any) {
-
-    const pattern = /^[a-zA-Z]/;
-    const inputChar = String.fromCharCode(event.charCode);
-
-    if (event.keyCode == '32') {
-      return true;
-    }
-
-    if (!pattern.test(inputChar)) {
-      return false;
-    }
-
-    return true;
+  private getContactApi(){
+    this.activatedRoute.params.subscribe((value) => {
+      if(value && value.id){
+        this.contactService.getContactApi(value.id).subscribe((contact) => {
+          if(contact){
+            this.personService.setPerson(contact);
+          }
+        });  
+      }
+    });
   }
 
-  onlyNumber(event: any) {
-
-    const pattern = /[0-9]/;
-    const inputChar = String.fromCharCode(event.charCode);
-
-    if (event.keyCode == '9' || event.keyCode == '8') {
-      return true;
-    }
-
-    if (!pattern.test(inputChar)) {
-      return false;
-    }
-  }
- 
-  save(){
+  public save(){
     this.formulario = new FormGroup({
       'email': new FormControl(this.contact.email, [
         Validators.required,
@@ -113,7 +98,7 @@ export class ContactCadastreComponent implements OnInit {
     }
   }
 
-  back(){
+  public back(){
     this.router.navigate(['/contact/list/']);
   }
 

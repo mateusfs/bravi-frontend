@@ -56,6 +56,10 @@ export class ContactService {
     return (Math.random().toString(36).toUpperCase()+ Math.random().toString(36).substring(2, 15).toUpperCase()).replace('.', '');
   }
 
+  /**
+   *  METHOD CREATED
+   *  To synchronize the elements if the backend is experiencing problems and synchronization
+   */
   public getContactSync(){
     const contacts = this.getContactsPerson();
 
@@ -104,9 +108,29 @@ export class ContactService {
   public initialContactsSync(){
     this.saveContactSync().subscribe((response) => {
       if(response){
+        this.setContactSyncOk();
+      }
+    });
+  }
+
+  public removeContact(id){
+    this.deleteContact(id).subscribe((response) => {
+      if(response){
         console.log('Sync contacts');
       }
     });
+  }
+
+  private setContactSyncOk(){
+    const contacts = this.getContactsPerson();
+
+    if(Array.isArray(contacts)){
+      contacts.forEach(contact => {
+        contact.sync = false;
+      });
+    }
+
+    this.setContacts(contacts);
   }
 
 }

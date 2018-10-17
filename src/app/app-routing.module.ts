@@ -11,9 +11,11 @@ const APP_ROUTES: Routes = [
     { path: '', component: ListComponent },
     { path: 'list', component: ListComponent },
     { path: 'cadastre', component: CadastreComponent },
+    { path: 'cadastre/:id', component: CadastreComponent },
 	{ path: 'bracket', component: BracketComponent },
 	{ path: 'contact/list', component: ContactListComponent },
-	{ path: 'contact/edit', component: ContactCadastreComponent }
+    { path: 'contact/edit', component: ContactCadastreComponent },
+    { path: 'contact/edit/:id', component: ContactCadastreComponent }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(

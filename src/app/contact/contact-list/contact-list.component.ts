@@ -70,8 +70,8 @@ export class ContactListComponent implements OnInit {
     if(Array.isArray(this.contacts)){
       this.contacts.forEach((item, index) => {
         if(item.id === contact.id){
+          this.contactService.removeContact(contact.id);
           this.contacts.splice(index, 1);
-          this.contactService.deleteContact(contact.id);
         }
       });
     }

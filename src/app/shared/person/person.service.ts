@@ -36,6 +36,10 @@ export class PersonService {
     return (Math.random().toString(36).toUpperCase()+ Math.random().toString(36).substring(2, 15).toUpperCase()).replace('.', '');
   }
 
+  /**
+   *  METHOD CREATED
+   *  To synchronize the elements if the backend is experiencing problems and synchronization
+   */
   public getPersonsSync(){
     const persons = this.getPersons();
 
@@ -83,10 +87,29 @@ export class PersonService {
   public initialPersonsSync(){
     this.savePersonSync().subscribe((response) => {
       if(response){
-        console.log('Sync persons');
+        this.setPersonSyncOk()
       }
     });
   }
   
+  public removePerson(id){
+    this.deletePerson(id).subscribe((response) => {
+      if(response){
+        console.log('Remove person');
+      }
+    });
+  }
+
+  private setPersonSyncOk(){
+    const persons = this.getPersons();
+
+    if(Array.isArray(persons)){
+      persons.forEach(contact => {
+        contact.sync = false;
+      });
+    }
+
+    this.setPersons(persons);
+  }
 
 }

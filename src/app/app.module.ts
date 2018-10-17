@@ -38,7 +38,7 @@ import { ContactCadastreComponent } from './contact/contact-cadastre/contact-cad
     CadastreComponent,
     BracketComponent,
     ContactListComponent,
-    ContactCadastreComponent
+    ContactCadastreComponent,
   ],
   imports: [
     BrowserModule,
