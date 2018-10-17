@@ -29,6 +29,6 @@ export enum UrlType {
  *  OR configure the php.ini where is the API
  */
 
-const UrlProductWin = { environment: 'WIN', product: 'api/v1/public'};
-const UrlProductLinux = { environment: 'LINUX', product: 'api/v1/'};
+const UrlProductWin = { environment: 'WIN', product: 'public/api/v1'};
+const UrlProductLinux = { environment: 'LINUX', product: 'api/v1'};
 

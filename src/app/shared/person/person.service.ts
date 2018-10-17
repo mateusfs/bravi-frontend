@@ -61,7 +61,7 @@ export class PersonService {
 
   public savePerson(person) {
     let url: string = ServiceUrlBuilder.get(UrlType.person, 'save');
-		return this.http.post(url, { person: person }, { headers: this.header.getHeaders() }).pipe(
+		return this.http.post(url, { ...person }, { headers: this.header.getHeaders() }).pipe(
 			map((response: any) => response),
 			catchError(error => observableThrowError(error)));
   }

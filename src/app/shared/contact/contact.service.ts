@@ -82,7 +82,7 @@ export class ContactService {
 
   public saveContact(contact) {
     let url: string = ServiceUrlBuilder.get(UrlType.contact, 'save');
-		return this.http.post(url, { contact: contact }, { headers: this.header.getHeaders() }).pipe(
+		return this.http.post(url, { ...contact }, { headers: this.header.getHeaders() }).pipe(
 			map((response: any) => response),
 			catchError(error => observableThrowError(error)));
   }
