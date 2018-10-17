@@ -26,11 +26,9 @@ export class CadastreComponent implements OnInit {
       this.person = this.personService.getPerson();
     }
 
-    this.personService.savePersonSync().subscribe((response) => {
-      if(response){
-        console.log('sync');
-      }
-    });
+    if(!this.personService.getPersonsSync()){
+			this.personService.initialPersonsSync();
+    }
   }
 
   onlyLetter(event: any) {
@@ -135,5 +133,7 @@ export class CadastreComponent implements OnInit {
   public disabledPerson(){
     return !(this.person.name && this.person.sex && this.person.age);
   }
+
+  
  
 }

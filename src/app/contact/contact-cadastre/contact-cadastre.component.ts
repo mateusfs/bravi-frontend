@@ -42,11 +42,9 @@ export class ContactCadastreComponent implements OnInit {
       this.router.navigate(['/cadastre']);
     }
 
-    this.contactService.saveContactSync().subscribe((response) => {
-      if(response){
-        console.log('sync');
-      }
-    });
+    if(!this.contactService.getContactSync()){
+			this.contactService.initialContactsSync();
+    }
   }
 
   onlyLetter(event: any) {

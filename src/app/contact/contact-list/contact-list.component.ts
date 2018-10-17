@@ -36,11 +36,10 @@ export class ContactListComponent implements OnInit {
     this.contactService.setContact(null);
     this.contacts = this.contactService.getContactsPerson();
 
-    this.contactService.saveContactSync().subscribe((response) => {
-      if(response){
-        console.log('sync');
-      }
-    });
+    if(!this.contactService.getContactSync()){
+			this.contactService.initialContactsSync();
+    }
+    
   }
 
   public editar(contact) {
@@ -82,6 +81,4 @@ export class ContactListComponent implements OnInit {
   public cadastre(){
     this.router.navigate(['/contact/edit/']);
   }
-
-  
 }

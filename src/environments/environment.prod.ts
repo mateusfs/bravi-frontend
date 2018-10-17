@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://localhost/',
-  apiUrlToken: 'https://localhost/token'
+  apiUrl: 'https://localhost/bravi-api/',
+  apiUrlToken: 'https://localhost/tokenbravi-api/'
 };
