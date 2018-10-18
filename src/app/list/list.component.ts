@@ -4,6 +4,7 @@ import { ConfirmationService } from 'primeng/api';
 
 import { Person, PersonRace } from '../shared/person/person';
 import { PersonService } from '../shared/person/person.service';
+import { ContactService } from '../shared/contact/contact.service';
 
 @Component({
   selector: 'app-list',
@@ -15,7 +16,11 @@ export class ListComponent implements OnInit {
   public persons: Array<Person>;
   public personRace = PersonRace;
 
-  constructor(private router: Router, private personService: PersonService, private confirmationService: ConfirmationService) { }
+  constructor(
+    private router: Router, 
+    private personService: PersonService, 
+    private contactService: ContactService,
+    private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.personService.setPerson(null);
@@ -27,13 +32,28 @@ export class ListComponent implements OnInit {
     if(Array.isArray(this.persons)){
       this.persons.forEach((item, index) => {
         if(item.id === person.id){
-          this.persons.splice(index, 1);
+          this.removeContactsPerson(person)
           this.personService.removePerson(person.id);
+          this.persons.splice(index, 1);
         }
       });
     }
 
     this.personService.setPersons(this.persons);
+  }
+
+  public removeContactsPerson(person) {
+    let contacts = this.contactService.getContacts();
+
+    if(Array.isArray(contacts)){
+      contacts.forEach((contact, index) => {
+        if(contact.person === person.id){
+          contacts.splice(index, 1);
+        }
+      });
+
+      this.contactService.setContacts(contacts);
+    }
   }
 
   public editar(person) {

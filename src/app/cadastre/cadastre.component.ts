@@ -36,12 +36,17 @@ export class CadastreComponent implements OnInit {
     }
   }
 
+  /**
+   *  METHOD CALL BY URL
+   */
   private getPersonApi(){
     this.activatedRoute.params.subscribe((value) => {
       if(value && value.id){
         this.personService.getPersonApi(value.id).subscribe((person) => {
           if(person){
-            this.personService.setPerson(person);
+            this.person = person;
+            this.person.id = value.id;
+            this.setPersonSession(false);
           }
         });  
       }
@@ -97,7 +102,7 @@ export class CadastreComponent implements OnInit {
       if(!this.person.id){
         this.person.id = this.personService.generateId();
         this.person.sync = true;
-        this.setPersonSession();
+        this.setPersonSession(true);
       }
 
       this.personService.setPerson(this.person);
@@ -105,16 +110,16 @@ export class CadastreComponent implements OnInit {
       this.personService.savePerson(this.person).subscribe((response) => {
 				if(response){
           this.person.sync = false;
-          this.setPersonSession();
+          this.setPersonSession(true);
         }
 			},
       error => {
-        this.setPersonSession();
+        this.setPersonSession(true);
       });
     }
   }
 
-  private setPersonSession(){
+  private setPersonSession(router){
 
     let persons = this.personService.getPersons();
     
@@ -135,7 +140,9 @@ export class CadastreComponent implements OnInit {
        this.personService.setPersons(persons);
     }
 
-    this.router.navigate(['/list']);
+    if(router){
+      this.router.navigate(['/list']);
+    }
   }
   
   public isValidade(name){
@@ -151,6 +158,4 @@ export class CadastreComponent implements OnInit {
     return !(this.person.name && this.person.sex && this.person.age);
   }
 
-  
- 
 }

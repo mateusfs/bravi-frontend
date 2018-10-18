@@ -50,12 +50,17 @@ export class ContactCadastreComponent implements OnInit {
     }
   }
 
+  /**
+   *  METHOD CALL BY URL
+   */
   private getContactApi(){
     this.activatedRoute.params.subscribe((value) => {
       if(value && value.id){
         this.contactService.getContactApi(value.id).subscribe((contact) => {
           if(contact){
-            this.personService.setPerson(contact);
+            this.contact = contact;
+            this.contact.id = value.id;
+            this.setContactSession(false);
           }
         });  
       }
@@ -83,17 +88,17 @@ export class ContactCadastreComponent implements OnInit {
       if(!this.contact.id){
         this.contact.id = this.contactService.generateId();
         this.contact.sync = true;
-        this.setContactSession();
+        this.setContactSession(true);
       }
 
       this.contactService.saveContact(this.contact).subscribe((response) => {
 				if(response){
           this.contact.sync = false;
-          this.setContactSession();
+          this.setContactSession(true);
         }
 			},
       error => {
-        this.setContactSession();
+        this.setContactSession(true);
       });
     }
   }
@@ -106,7 +111,7 @@ export class ContactCadastreComponent implements OnInit {
     return !(this.contact.email);
   }
 
-  private setContactSession(){
+  private setContactSession(router){
 
     let contacts = this.contactService.getContacts();
     
@@ -127,7 +132,9 @@ export class ContactCadastreComponent implements OnInit {
       this.contactService.setContacts(contacts);
     }
 
-    this.router.navigate(['/contact/list/']);
+    if(router){
+      this.router.navigate(['/contact/list/']);
+    }  
   }
   
   public isValidade(name){
