@@ -113,6 +113,9 @@ export class ContactService {
 			catchError(error => observableThrowError(error)));
   }
 
+  /**
+   * Synchronize contacts 
+   */
   public initialContactsSync(){
     this.saveContactSync().subscribe((response) => {
       if(response){
@@ -121,6 +124,9 @@ export class ContactService {
     });
   }
 
+  /**
+   * Remove contact 
+   */
   public removeContact(id){
     this.deleteContact(id).subscribe((response) => {
       if(response){
@@ -129,6 +135,9 @@ export class ContactService {
     });
   }
 
+  /**
+   * Synchronized 
+   */
   private setContactSyncOk(){
     const contacts = this.getContactsPerson();
 

@@ -24,15 +24,10 @@ export class CadastreComponent implements OnInit {
     private personService: PersonService) { }
 
   ngOnInit() { 
-
     this.getPersonApi();
 
     if (this.personService.getPerson()) {
       this.person = this.personService.getPerson();
-    }
-
-    if(this.personService.getPersonsSync() && this.personService.getPersonsSync().length){
-			this.personService.initialPersonsSync();
     }
   }
 

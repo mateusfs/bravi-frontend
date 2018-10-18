@@ -20,6 +20,10 @@
   font-size: 18px;
 }
 
+.ui-widget {
+  font-family: 'Open Sans', sans-serif !important;
+}
+
 strong{
   font-weight: bold;
   font-size: 30px;

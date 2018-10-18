@@ -92,6 +92,9 @@ export class PersonService {
 			catchError(error => observableThrowError(error)));
   }
 
+  /**
+   * Synchronize persons 
+   */
   public initialPersonsSync(){
     this.savePersonSync().subscribe((response) => {
       if(response){
@@ -100,6 +103,9 @@ export class PersonService {
     });
   }
   
+  /**
+   * Remove person 
+   */
   public removePerson(id){
     this.deletePerson(id).subscribe((response) => {
       if(response){
@@ -108,6 +114,9 @@ export class PersonService {
     });
   }
 
+  /**
+   * Synchronized 
+   */
   private setPersonSyncOk(){
     const persons = this.getPersons();
 

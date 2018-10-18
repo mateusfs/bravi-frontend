@@ -24,17 +24,24 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.retrivePersons();
+
+    if(this.personService.getPersonsSync() && this.personService.getPersonsSync().length){
+			this.personService.initialPersonsSync();
+    }
   }
 
   private retrivePersons(){
     this.personService.setPerson(null);
     this.persons = this.personService.getPersons();
+    this.makeSyncPersons();
+  }
 
+  /**
+   *  Synchronize persons if sync == false
+   */
+  private makeSyncPersons(){
     this.personService.retriveAllPersons().subscribe((persons) => {
-      if(persons){
-        persons.forEach(contact => {
-          contact.id = contact.id;
-        });
+      if(persons && !this.personService.getPersonsSync()){
         this.persons = persons;
         this.personService.setPersons(persons);
        }

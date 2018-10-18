@@ -35,18 +35,23 @@ export class ContactListComponent implements OnInit {
 
     this.retriveContacts();
 
-    if(!this.contactService.getContactSync()){
+    if(this.contactService.getContactSync() && this.contactService.getContactSync().length){
 			this.contactService.initialContactsSync();
     }
-    
   }
 
   private retriveContacts(){
     this.contactService.setContact(null);
     this.contacts = this.contactService.getContactsPerson();
+    this.makeSyncContacts();
+  }
 
+  /**
+   *  Synchronize contacts if sync == false
+   */
+  private makeSyncContacts(){
     this.contactService.retriveAllContacts().subscribe((contacts) => {
-      if(contacts){
+      if(contacts && !this.contactService.getContactSync().length){
         this.contacts = contacts;
         this.contactService.setContacts(contacts);
       }

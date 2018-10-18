@@ -2,7 +2,8 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="title">
-        <span class="title-text">Cadastro de Pessoa</span>
+        <span *ngIf="!person.id" class="title-text">Cadastrar Pessoa</span>
+        <span *ngIf="person.id" class="title-text">Editar Pessoa</span>
     </div>
 </div>
 
