@@ -88,7 +88,6 @@ export class ContactCadastreComponent implements OnInit {
       if(!this.contact.id){
         this.contact.id = this.contactService.generateId();
         this.contact.sync = true;
-        this.setContactSession(true);
       }
 
       this.contactService.saveContact(this.contact).subscribe((response) => {

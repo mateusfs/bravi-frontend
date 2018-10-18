@@ -23,16 +23,29 @@ export class ListComponent implements OnInit {
     private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
+    this.retrivePersons();
+  }
+
+  private retrivePersons(){
     this.personService.setPerson(null);
     this.persons = this.personService.getPersons();
+
+    this.personService.retriveAllPersons().subscribe((persons) => {
+      if(persons){
+        persons.forEach(contact => {
+          contact.id = contact.id;
+        });
+        this.persons = persons;
+        this.personService.setPersons(persons);
+       }
+    });
   }
 
   public removePerson(person) {
-    
     if(Array.isArray(this.persons)){
       this.persons.forEach((item, index) => {
         if(item.id === person.id){
-          this.removeContactsPerson(person)
+          this.removeContactsPerson(person);
           this.personService.removePerson(person.id);
           this.persons.splice(index, 1);
         }

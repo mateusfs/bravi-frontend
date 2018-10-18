@@ -102,7 +102,6 @@ export class CadastreComponent implements OnInit {
       if(!this.person.id){
         this.person.id = this.personService.generateId();
         this.person.sync = true;
-        this.setPersonSession(true);
       }
 
       this.personService.setPerson(this.person);

@@ -59,6 +59,7 @@ export class ContactService {
   /**
    *  METHOD CREATED
    *  To synchronize the elements if the backend is experiencing problems and synchronization
+   *  solution for offline application
    */
   public getContactSync(){
     const contacts = this.getContactsPerson();
@@ -101,6 +102,13 @@ export class ContactService {
   public deleteContact(id) {
     let url: string = ServiceUrlBuilder.get(UrlType.contact, 'delete');
 		return this.http.delete(url+"/"+id, { headers: this.header.getHeaders() }).pipe(
+			map((response: any) => response),
+			catchError(error => observableThrowError(error)));
+  }
+
+  public retriveAllContacts(){
+    let url: string = ServiceUrlBuilder.get(UrlType.contact, 'all');
+		return this.http.get(url, { headers: this.header.getHeaders() }).pipe(
 			map((response: any) => response),
 			catchError(error => observableThrowError(error)));
   }

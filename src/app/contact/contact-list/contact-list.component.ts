@@ -33,13 +33,24 @@ export class ContactListComponent implements OnInit {
       this.router.navigate(['/cadastre']);
     }
 
-    this.contactService.setContact(null);
-    this.contacts = this.contactService.getContactsPerson();
+    this.retriveContacts();
 
     if(!this.contactService.getContactSync()){
 			this.contactService.initialContactsSync();
     }
     
+  }
+
+  private retriveContacts(){
+    this.contactService.setContact(null);
+    this.contacts = this.contactService.getContactsPerson();
+
+    this.contactService.retriveAllContacts().subscribe((contacts) => {
+      if(contacts){
+        this.contacts = contacts;
+        this.contactService.setContacts(contacts);
+      }
+    });
   }
 
   public editar(contact) {

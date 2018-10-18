@@ -39,6 +39,7 @@ export class PersonService {
   /**
    *  METHOD CREATED
    *  To synchronize the elements if the backend is experiencing problems and synchronization
+   *  solution for offline application
    */
   public getPersonsSync(){
     const persons = this.getPersons();
@@ -80,6 +81,13 @@ export class PersonService {
   public deletePerson(id) {
     let url: string = ServiceUrlBuilder.get(UrlType.person, 'delete');
 		return this.http.delete(url+"/"+id, { headers: this.header.getHeaders() }).pipe(
+			map((response: any) => response),
+			catchError(error => observableThrowError(error)));
+  }
+
+  public retriveAllPersons(){
+    let url: string = ServiceUrlBuilder.get(UrlType.person, 'all');
+		return this.http.get(url, { headers: this.header.getHeaders() }).pipe(
 			map((response: any) => response),
 			catchError(error => observableThrowError(error)));
   }
